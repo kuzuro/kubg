@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kubg.domain.CategoryVO;
 import com.kubg.domain.GoodsVO;
+import com.kubg.domain.GoodsViewVO;
 import com.kubg.persistence.AdminDAO;
 
 @Service
@@ -34,9 +35,21 @@ public class AdminServiceImpl implements AdminService {
 		return dao.goodslist();
 	}
 
-	// 상품조회
+	// 상품조회  + 카테고리 조인
 	@Override
-	public GoodsVO goodsView(int gdsNum) throws Exception {
+	public GoodsViewVO goodsView(int gdsNum) throws Exception {
 		return dao.goodsView(gdsNum);
 	}
-} 
+
+	// 상품 수정
+	@Override
+	public void goodsModify(GoodsVO vo) throws Exception {
+		dao.goodsModify(vo);
+	}
+
+	// 상품 삭제
+	@Override
+	public void goodsDelete(int gdsNum) throws Exception {
+		dao.goodsDelete(gdsNum);
+	}
+}
