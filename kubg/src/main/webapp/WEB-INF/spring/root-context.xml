@@ -37,6 +37,7 @@
 	<context:component-scan base-package="com.kubg.domain" />
 	<context:component-scan base-package="com.kubg.persistence" />
 	<context:component-scan base-package="com.kubg.service" />
+	<context:component-scan base-package="com.kubg.utils" />
 	
 		
 </beans>

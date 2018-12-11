@@ -22,6 +22,14 @@ public class GoodsVO {
 	private String gdsImg;
 	private Date gdsDate;
 	
+	private String gdsThumbImg;
+	
+	public String getGdsThumbImg() {
+		return gdsThumbImg;
+	}
+	public void setGdsThumbImg(String gdsThumbImg) {
+		this.gdsThumbImg = gdsThumbImg;
+	}
 	public int getGdsNum() {
 		return gdsNum;
 	}
