@@ -45,7 +45,7 @@
 		        from tbl_goods g
 		            inner join goods_category c
 		                on g.cateCode = c.cateCode            
-           		where g.gdsNum = #{gdsNum}
+	          		where g.gdsNum = #{gdsNum}
 	</select>
 	
 	<!-- 상품 수정 -->
@@ -56,7 +56,11 @@
 		        cateCode = #{cateCode},
 		        gdsPrice = #{gdsPrice}, 
 		        gdsStock = #{gdsStock},
-		        gdsDes = #{gdsDes}
+		        gdsDes = #{gdsDes},
+		        
+		        gdsImg = #{gdsImg},
+		        gdsThumbImg = #{gdsThumbImg}
+		        
 		    where gdsNum = ${gdsNum}
 	</update>
 	

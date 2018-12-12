@@ -26,7 +26,7 @@ public class MemberController {
 	MemberService service;
 	
 	@Autowired
-	BCryptPasswordEncoder passEncoder;
+	BCryptPasswordEncoder passEncoder;  // 비밀번호 암호화
 			
 	// 회원 가입 get
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -40,8 +40,8 @@ public class MemberController {
 		logger.info("post signup");
 			
 		String inputPass = vo.getUserPass();
-		String pass = passEncoder.encode(inputPass);
-		vo.setUserPass(pass);
+		String pass = passEncoder.encode(inputPass);  // 비밀번호를 암호화
+		vo.setUserPass(pass);  // 암호화된 비밀번호를 userPass에 저장
 	
 		service.signup(vo);
 	
@@ -59,17 +59,18 @@ public class MemberController {
 	public String postSignin(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
 		logger.info("post signin");
 				
-		MemberVO login = service.signin(vo);		
-		HttpSession session = req.getSession();
+		MemberVO login = service.signin(vo);  // MemverVO형 변수 login에 로그인 정보를 저장
+		HttpSession session = req.getSession();  // 현재 세션 정보를 가져옴
 		
-		boolean passMatch = passEncoder.matches(vo.getUserPass(), login.getUserPass());
+		boolean passMatch = passEncoder.matches(vo.getUserPass(), login.getUserPass());  // DB의 비밀번호와 입력된 비밀번호를 비교
 		
-		if(login != null && passMatch) {
-			session.setAttribute("member", login);
-		} else {
-			session.setAttribute("member", null);
-			rttr.addFlashAttribute("msg", false);
-			return "redirect:/member/signin";
+		if(login != null && passMatch) {  // 아이디가 존재하고(!=null), 비밀번호가 맞으면(PassMatch = true) 
+			session.setAttribute("member", login);  // member 세션에 로그인 정보를 부여
+			
+		} else {  // 아이디가 존재하지 않고, 비밀번호가 틀리면
+			session.setAttribute("member", null);  // member 세션에 null 부여  
+			rttr.addFlashAttribute("msg", false);  // 1회성인 변수인 msg에 false 부여
+			return "redirect:/member/signin";  // 로그인 화면으로 이동
 		}		
 		
 		return "redirect:/";
@@ -80,7 +81,7 @@ public class MemberController {
 	public String signout(HttpSession session) throws Exception {
 		logger.info("get logout");
 		
-		service.signout(session);
+		service.signout(session);  // 세션 정보를 제거
 				
 		return "redirect:/";
 	}
