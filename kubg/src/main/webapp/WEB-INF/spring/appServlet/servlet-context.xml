@@ -37,6 +37,9 @@
 
 	<!-- ck에디터 파일 업로드 경로 -->
 	<resources mapping="/ckUpload/**" location="/resources/ckUpload/" />
+	
+	<!-- 대체 이미지 경로 -->
+	<resources mapping="/images/**" location="/resources/images/" />
 
 	<beans:bean id="AdminInterceptor" class="com.kubg.interceptor.AdminInterceptor" />
 	
