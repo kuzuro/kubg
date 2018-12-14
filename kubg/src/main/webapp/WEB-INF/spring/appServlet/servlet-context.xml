@@ -35,7 +35,9 @@
 		<beans:property name="maxUploadSize" value="10485760"/>
 	</beans:bean>
 
-	
+	<!-- ck에디터 파일 업로드 경로 -->
+	<resources mapping="/ckUpload/**" location="/resources/ckUpload/" />
+
 	<beans:bean id="AdminInterceptor" class="com.kubg.interceptor.AdminInterceptor" />
 	
 	<interceptors>
