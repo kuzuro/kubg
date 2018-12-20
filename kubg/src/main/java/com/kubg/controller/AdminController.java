@@ -59,40 +59,43 @@ public class AdminController {
 	}
 
 	
-	// 상품 등록
-	@RequestMapping(value = "/goods/register", method = RequestMethod.POST)
-	public String postGoodsRegister(GoodsVO vo, MultipartFile file) throws Exception {
-		
-		String imgUploadPath = uploadPath + File.separator + "imgUpload";  // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload 
-		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);  // 위의 폴더를 기준으로 연월일 폴더를 생성
-		String fileName = null;  // 기본 경로와 별개로 작성되는 경로 + 파일이름
-				
-		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-			// 파일 인풋박스에 첨부된 파일이 없다면(=첨부된 파일이 이름이 없다면)
+// 상품 등록
+@RequestMapping(value = "/goods/register", method = RequestMethod.POST)
+public String postGoodsRegister(GoodsVO vo, MultipartFile file) throws Exception {
+	
+	String imgUploadPath = uploadPath + File.separator + "imgUpload";  // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload 
+	String ymdPath = UploadFileUtils.calcPath(imgUploadPath);  // 위의 폴더를 기준으로 연월일 폴더를 생성
+	String fileName = null;  // 기본 경로와 별개로 작성되는 경로 + 파일이름
 			
-			fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-			
-		} else {  // 첨부된 파일이 없으면
-			fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
-			// 미리 준비된 none.png파일을 대신 출력함
-		}
+	if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+		// 파일 인풋박스에 첨부된 파일이 없다면(=첨부된 파일이 이름이 없다면)
 		
+		fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+
 		// gdsImg에 원본 파일 경로 + 파일명 저장
 		vo.setGdsImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 		// gdsThumbImg에 썸네일 파일 경로 + 썸네일 파일명 저장
 		vo.setGdsThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
-				
-		adminService.register(vo);
 		
-		return "redirect:/admin/index";
+	} else {  // 첨부된 파일이 없으면
+		fileName = File.separator + "images" + File.separator + "none.png";
+		// 미리 준비된 none.png파일을 대신 출력함
+		
+		vo.setGdsImg(fileName);
+		vo.setGdsThumbImg(fileName);
 	}
+						
+	adminService.register(vo);
+	
+	return "redirect:/admin/index";
+}
 		  
 	// 상품 목록
 	@RequestMapping(value = "/goods/list", method = RequestMethod.GET)
 	public void getGoodsList(Model model) throws Exception {
 		logger.info("get goods list");
 		
-		List<GoodsVO> list = adminService.goodslist();  // GoodsVO형태의 List형 변수 list 선언
+		List<GoodsViewVO> list = adminService.goodslist();  // GoodsVO형태의 List형 변수 list 선언
 		
 		model.addAttribute("list", list);  // 변수 list의 값을 list 세션에 부여
 	}
@@ -106,7 +109,7 @@ public class AdminController {
 		model.addAttribute("goods", goods);
 	}
 	
-	// 상품 수정
+	// 상품 수정 
 	@RequestMapping(value = "/goods/modify", method = RequestMethod.GET)
 	public void getGoodsModify(@RequestParam("n") int gdsNum, Model model) throws Exception {
 	// @RequestParam("n")으로 인해, URL주소에 있는 n의 값을 가져와 gdsNum에 저장

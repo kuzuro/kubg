@@ -10,7 +10,7 @@ import com.kubg.domain.CategoryVO;
 import com.kubg.domain.GoodsVO;
 import com.kubg.domain.GoodsViewVO;
 import com.kubg.persistence.AdminDAO;
-
+ 
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -31,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
 
 	// 상품목록
 	@Override
-	public List<GoodsVO> goodslist() throws Exception {
+	public List<GoodsViewVO> goodslist() throws Exception {
 		return dao.goodslist();
 	}
 
