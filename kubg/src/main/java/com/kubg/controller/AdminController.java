@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kubg.domain.CategoryVO;
 import com.kubg.domain.GoodsVO;
 import com.kubg.domain.GoodsViewVO;
+import com.kubg.domain.OrderListVO;
+import com.kubg.domain.OrderVO;
 import com.kubg.service.AdminService;
 import com.kubg.utils.UploadFileUtils;
 
@@ -38,14 +40,14 @@ public class AdminController {
 	
 	@Inject
 	AdminService adminService;
-	
+		
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
 	// 관리자화면
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public void getIndex() throws Exception {
-		logger.info("get index");
+		logger.info("get index"); 
 	}
 
 	// 상품 등록
@@ -219,5 +221,38 @@ public class AdminController {
 		return;	
 	}
 	
+	// 주문 목록
+	@RequestMapping(value = "/shop/orderList", method = RequestMethod.GET)
+	public void getOrderList(Model model) throws Exception {
+		logger.info("get order list");
+				
+		List<OrderVO> orderList = adminService.orderList();
+		
+		model.addAttribute("orderList", orderList);
+	}
+	 
+	// 주문 상세 목록
+	@RequestMapping(value = "/shop/orderView", method = RequestMethod.GET)
+	public void getOrderList(@RequestParam("n") String orderId,
+							OrderVO order, Model model) throws Exception {
+		logger.info("get order view");
+		
+		order.setOrderId(orderId);		
+		List<OrderListVO> orderView = adminService.orderView(order);
+		
+		model.addAttribute("orderView", orderView);
+	}
+	
+	// 주문 상세 목록 - 상태 변경
+	@RequestMapping(value = "/shop/orderView", method = RequestMethod.POST)
+	public String delivery(OrderVO order) throws Exception {
+		logger.info("post order view");
+				
+		adminService.delivery(order);
+	
+		return "redirect:/admin/shop/orderView?n=" + order.getOrderId();
+	}
+	
+
 } 
  

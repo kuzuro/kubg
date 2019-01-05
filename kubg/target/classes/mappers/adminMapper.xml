@@ -84,5 +84,40 @@
 	   		tbl_goods
 		where gdsNum = #{gdsNum}
 	</delete>
-	 
+	
+	<!-- 모든 유저의 주문 목록 -->
+	<select id="orderList" resultType="com.kubg.domain.OrderVO">
+		select 
+		    orderId, userId, orderRec,
+		    userAddr1, userAddr2, userAddr3,
+		    orderPhon, amount, orderDate, delivery
+		from tbl_order
+	</select>
+	
+	<!-- 특정 주문 목록 -->
+	<select id="orderView" resultType="com.kubg.domain.OrderListVO">
+		select 
+		    o.orderId, o.userId, o.orderRec,
+		    o.userAddr1, o.userAddr2, o.userAddr3,
+		    o.orderPhon, o.amount, o.orderDate, o.delivery,
+		    d.orderDetailsNum, d.gdsNum, d.cartStock,
+		    g.gdsName, g.gdsThumbImg, g.gdsPrice
+		from tbl_order o
+		        inner join tbl_order_details d
+		            on o.orderId = d.orderId
+		        inner join tbl_goods g
+		            on d.gdsNum = g.gdsNum
+		    where o.orderId = #{orderId}
+	</select>
+	
+	<!-- 배송 상태 -->
+	<update id="delivery">
+		update tbl_order
+	   		set delivery = #{delivery}
+		where orderId = #{orderId}
+		
+	</update>
+		 
 </mapper>
+
+
