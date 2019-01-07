@@ -249,6 +249,18 @@ public class AdminController {
 		logger.info("post order view");
 				
 		adminService.delivery(order);
+		
+		// 새로운 Service → DAO → Mapper 를 사용하지 않고, 기존에 있던 Service를 사용
+		List<OrderListVO> orderView = adminService.orderView(order);	
+		
+		// 생성자 사용
+		GoodsVO goods = new GoodsVO();
+				
+		for(OrderListVO i : orderView) {
+			goods.setGdsNum(i.getGdsNum());
+			goods.setGdsStock(i.getCartStock());
+			adminService.changeStock(goods);
+		}
 	
 		return "redirect:/admin/shop/orderView?n=" + order.getOrderId();
 	}

@@ -76,4 +76,9 @@ public class AdminDAOImpl implements AdminDAO {
 		sql.update(namespace + ".delivery", order);
 	}
 	
+	// 상품 수량 조절
+	@Override
+	public void changeStock(GoodsVO goods) throws Exception {		
+		sql.update(namespace + ".changeStock", goods);
+	}
 }

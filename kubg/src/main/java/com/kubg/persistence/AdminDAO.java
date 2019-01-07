@@ -36,4 +36,9 @@ public interface AdminDAO {
 	
 	// 배송 상태
 	public void delivery(OrderVO order) throws Exception;
+
+	// 상품 수량 조절
+	public void changeStock(GoodsVO goods) throws Exception;
+	
+
 } 
