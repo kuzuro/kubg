@@ -132,6 +132,23 @@
     		where orderId = #{orderId}
 	</select>
 		 
+	<!--  모든 소감(댓글) -->
+	<select id="allReply" resultType="com.kubg.domain.ReplyListVO">
+		select
+		    r.gdsNum, r.userId, r.repNum, r.repCon, r.repDate,
+		    m.userName
+		from tbl_reply r
+		     inner join tbl_member m
+		        on r.userId = m.userId
+	</select>
+	
+	<!-- 소감(댓글) 지우기 -->
+	<delete id="deleteReply">
+		delete tbl_reply
+	   		where repNum = #{repNum}
+	</delete>
+		 
+		 
 </mapper>
 
 

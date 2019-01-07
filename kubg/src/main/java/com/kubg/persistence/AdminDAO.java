@@ -7,6 +7,7 @@ import com.kubg.domain.GoodsVO;
 import com.kubg.domain.GoodsViewVO;
 import com.kubg.domain.OrderListVO;
 import com.kubg.domain.OrderVO;
+import com.kubg.domain.ReplyListVO;
 
 public interface AdminDAO {
 	
@@ -40,5 +41,9 @@ public interface AdminDAO {
 	// 상품 수량 조절
 	public void changeStock(GoodsVO goods) throws Exception;
 	
-
+	// 모든 소감(댓글)
+	public List<ReplyListVO> allReply() throws Exception;
+	
+	// 소감(댓글) 삭제
+	public void deleteReply(int repNum) throws Exception;
 } 

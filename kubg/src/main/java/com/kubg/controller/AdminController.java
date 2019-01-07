@@ -27,6 +27,8 @@ import com.kubg.domain.GoodsVO;
 import com.kubg.domain.GoodsViewVO;
 import com.kubg.domain.OrderListVO;
 import com.kubg.domain.OrderVO;
+import com.kubg.domain.ReplyListVO;
+import com.kubg.domain.ReplyVO;
 import com.kubg.service.AdminService;
 import com.kubg.utils.UploadFileUtils;
 
@@ -265,6 +267,24 @@ public class AdminController {
 		return "redirect:/admin/shop/orderView?n=" + order.getOrderId();
 	}
 	
+	// 모든 소감(댓글)
+	@RequestMapping(value = "/shop/allReply", method = RequestMethod.GET)
+	public void getAllReply(Model model) throws Exception {
+		logger.info("get all reply");
+				
+		List<ReplyListVO> reply = adminService.allReply();
+		
+		model.addAttribute("reply", reply);
+	}
 
-} 
- 
+	// 모든 소감(댓글)
+	@RequestMapping(value = "/shop/allReply", method = RequestMethod.POST)
+	public String postAllReply(ReplyVO reply) throws Exception {
+		logger.info("post all reply");
+				
+		adminService.deleteReply(reply.getRepNum());
+		
+		return "redirect:/admin/shop/allReply";
+	}	
+
+}

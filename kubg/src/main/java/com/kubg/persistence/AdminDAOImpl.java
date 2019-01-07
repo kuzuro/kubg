@@ -12,6 +12,7 @@ import com.kubg.domain.GoodsVO;
 import com.kubg.domain.GoodsViewVO;
 import com.kubg.domain.OrderListVO;
 import com.kubg.domain.OrderVO;
+import com.kubg.domain.ReplyListVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
@@ -81,4 +82,16 @@ public class AdminDAOImpl implements AdminDAO {
 	public void changeStock(GoodsVO goods) throws Exception {		
 		sql.update(namespace + ".changeStock", goods);
 	}
-}
+
+	// 모든 소감(댓글)
+	@Override
+	public List<ReplyListVO> allReply() throws Exception {
+		return sql.selectList(namespace + ".allReply");
+	}
+
+	// 소감(댓글) 삭제
+	@Override
+	public void deleteReply(int repNum) throws Exception {
+		sql.delete(namespace + ".deleteReply", repNum);
+	}
+} 

@@ -11,6 +11,7 @@ import com.kubg.domain.GoodsVO;
 import com.kubg.domain.GoodsViewVO;
 import com.kubg.domain.OrderListVO;
 import com.kubg.domain.OrderVO;
+import com.kubg.domain.ReplyListVO;
 import com.kubg.persistence.AdminDAO;
  
 @Service
@@ -78,4 +79,16 @@ public class AdminServiceImpl implements AdminService {
 	public void changeStock(GoodsVO goods) throws Exception {		
 		dao.changeStock(goods);
 	}
-} 
+
+	// 모든 소감(댓글)
+	@Override
+	public List<ReplyListVO> allReply() throws Exception {
+		return dao.allReply();
+	}
+
+	// 소감(댓글) 삭제
+	@Override
+	public void deleteReply(int repNum) throws Exception {
+		dao.deleteReply(repNum);
+	}
+}
