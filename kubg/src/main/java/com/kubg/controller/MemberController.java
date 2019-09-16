@@ -59,10 +59,16 @@ public class MemberController {
 	public String postSignin(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
 		logger.info("post signin");
 				
+		System.out.println("vo : " + vo);
+		
+		
 		MemberVO login = service.signin(vo);  // MemverVO형 변수 login에 로그인 정보를 저장
 		HttpSession session = req.getSession();  // 현재 세션 정보를 가져옴
 		
+		System.out.println("login : " + login);
+		
 		boolean passMatch = passEncoder.matches(vo.getUserPass(), login.getUserPass());  // DB의 비밀번호와 입력된 비밀번호를 비교
+		System.out.println("passMatch : " + passMatch);
 		
 		if(login != null && passMatch) {  // 아이디가 존재하고(!=null), 비밀번호가 맞으면(PassMatch = true) 
 			session.setAttribute("member", login);  // member 세션에 로그인 정보를 부여

@@ -118,6 +118,13 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		
+<dependency>
+  <groupId>taglibs</groupId>
+  <artifactId>standard</artifactId>
+  <version>1.1.2</version>
+  <scope>compile</scope>
+</dependency>
 	
 		<!-- Test -->
 		<dependency>
@@ -231,6 +238,14 @@
 		    <artifactId>thumbnailator</artifactId>
 		    <version>0.4.8</version>
 		</dependency>
+		
+		<!-- maria bd -->
+<dependency>
+    <groupId>org.mariadb.jdbc</groupId>
+    <artifactId>mariadb-java-client</artifactId>
+    <version>2.3.0</version>
+</dependency>
+
 		
 	</dependencies>
     <build>
